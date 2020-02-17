@@ -243,6 +243,7 @@ defmodule MimeMail do
     |> String.chunk(:printable)
     |> Enum.filter(&String.printable?/1)
     |> Kernel.to_string()
+    |> String.replace_suffix("=", "")
   end
 
   def encode_header(_, {:raw, value}), do: {:raw, value}
