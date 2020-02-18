@@ -236,7 +236,9 @@ defmodule MimeMail do
   end
 
   def ensure_ascii(bin),
-    do: Kernel.to_string(for(<<c <- bin>>, (c < 127 and c > 31) or c in [?\t, ?\r, ?\n], do: c))
+    do:
+      Kernel.to_string(for(<<c <- bin>>, (c < 127 and c > 31) or c in [?\t, ?\r, ?\n], do: c))
+      |> String.replace_suffix("=", "")
 
   def ensure_utf8(bin) do
     bin
